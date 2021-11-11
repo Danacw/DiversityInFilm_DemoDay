@@ -1,0 +1,70 @@
+  /* international.html - so maps will show */
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  #map-id,
+  body,
+  html {
+    height: 100%;
+  }
+  .leaflet-popup-content {
+    text-align: left;
+  }
+
+  .leaflet-popup-content b {
+    font-weight:bolder;
+    font-family: 'Spartan', sans-serif;
+  }
+
+  #map-id,
+  h4 {
+    font-family: Spartan;
+    color: black;
+  }
+
+  .key-text {
+    background-color: rgba(82, 82, 82, 0.781);
+    text-align: center;
+    display:inline-block;
+    width:100%;
+  }
+
+  .key-text li {
+    display: inline-block;
+    float: none;
+    color: white;
+    font-size: 20px;
+    font-family: 'Spartan', sans-serif;
+  }
+
+  #top-color {
+    font-family: Spartan;
+    color: blue;
+  }
+
+  #top5-color {
+    font-family: Spartan;
+    color:green;
+  }
+
+  #top10-color {
+    font-family: Spartan;
+    color: yellow;
+  }
+
+  #mid-color {
+    font-family: Spartan;
+    color: orange;
+  }
+
+  #low-color {
+    font-family: Spartan;
+    color: red;
+  }
+
+  .extra-marker-square-blue {
+    z-index: 9999;
+    position: absolute;
+  }
+

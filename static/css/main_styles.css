@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@300&display=swap');
+
+*{
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+}
+
+.placeholder {
+  width: 100%;
+  height: 100vh;
+  background: url(../images/studio.jpg) center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.content-area{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content{
+  text-align: center;
+}
+
+.nav-link {
+  color: rgb(255, 255, 255);
+}
+
+.nav-item {
+  color: white;
+  position: center;
+  font-family: Spartan;
+  font-size: 17px;
+  font-weight: 100;
+  background-color: rgba(82, 82, 82, 0.781);
+}
+
+h1 {
+  color: white;
+  font-family: Spartan;
+  font-size: 300;
+  font-weight: 100;
+  display: inline-block;
+  width: 100%;
+  padding: 8px;
+  background-color: rgba(82, 82, 82, 0.781);
+}
+
+h2 {
+  color: white;
+  font-family: Spartan;
+  font-size: 1em;
+  font-weight: 50;
+  display: inline-block;
+  width: 100%;
+  padding: 8px;
+  background-color: rgba(82, 82, 82, 0.781);
+}
+
+h3 {
+  color: white;
+  font-family: Spartan;
+  font-size: 1em;
+  font-weight: 50;
+  display: inline-block;
+  width: 100%;
+  padding: 8px;
+  background-color: rgba(82, 82, 82, 0.781);
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+.menu input[type=text] {
+  float: left;
+  padding: 6px;
+  font-size: 17px;
+}
+#submit_button {
+  width:212px;
+  height:41px
+}
+#displayTitle {
+  font-family: Spartan;
+  background-color: rgba(82, 82, 82, 0.781);
+  color: #9ED9CCFF;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bolder;
+}
+.table-container {
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+/* Nofilter table */
+.nofiltertable {
+  font-family: Spartan;
+  text-align: center;
+  font-size: 14px;
+  background-color: white;
+  border-collapse: collapse;
+  width: 100%;
+}
+/* Adds border and padding to all cells */
+.nofiltertable td, .nofiltertable th {
+  border: 1px solid	#A9A9A9;
+  padding: 2px;
+}
+/* Every other row light gray */
+.nofiltertable tr:nth-child(even) {
+  background-color: 	#F0F0F0;
+}
+/* Table header row */
+.nofiltertable th {
+  text-align: center;
+  background-color: #9ED9CCFF;
+  font-weight: bolder;
+}
+/* Changes when hovered */
+.nofiltertable tr:hover {
+  background-color: #FFE9EC;
+  color: 	#000000;
+}
+
+
