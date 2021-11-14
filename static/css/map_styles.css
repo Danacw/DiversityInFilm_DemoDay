@@ -3,11 +3,24 @@
     padding: 0;
     margin: 0;
   }
-  #map-id,
+
   body,
   html {
     height: 100%;
   }
+
+  .map-menu {
+    height: 180px;
+  }
+
+  #row {
+    height: 30px;
+  }
+
+  #map-id {
+    height: calc(100vh - 210px);
+  }
+
   .leaflet-popup-content {
     text-align: left;
   }

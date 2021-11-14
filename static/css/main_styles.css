@@ -95,17 +95,21 @@ li {
   padding: 6px;
   font-size: 17px;
 }
+
 #submit_button {
   width:212px;
   height:41px
 }
 #displayTitle {
   font-family: Spartan;
-  background-color: rgba(82, 82, 82, 0.781);
+  background-color: rgba(143, 81, 81, 0.781);
   color: #9ED9CCFF;
   text-align: center;
   font-size: 16px;
   font-weight: bolder;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 10px;
 }
 .table-container {
   padding-top: 10px;
