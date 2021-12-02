@@ -1,62 +1,68 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  
-<head> 
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="https://img.icons8.com/fluency/48/000000/movie.png" type="image/png">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- <link rel="stylesheet" href="../css/style.css"> -->
     
-    <title>Diversity In Movies Database</title>
-
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/main_styles.css') }}">
-  </head>
-  
-  <body onload="hide()">
+<body>
     <div class="placeholder">
-      <div class="menu">
-        <ul class="nav justify-content-center">
-          <li class="nav-item">
-            <style> a:hover {color: rgb(252, 166, 180);}</style>
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/femalefocused">Female Focused</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/international">International</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/lowbudget">Low Budget</a>
-          </li>
-          <!-- GRAB MOVIE TITLE & RUN SIMILARITY.PY  -->
-          <form action="{{ url_for('similarity_scores') }}" method="post">
-            <input type="text" name = 'nm' placeholder="        Search Movie" name="chosenTitle">
-            <input type="submit" value="search" id="submit_button">
-          </form>
-          <div class="content-area">
-            <div class="content">
-              <h1 style="color: rgb(252, 166, 180);">DIVERSITY
-                <span style="color: white;">IN MOVIES DATABASE</span></h1>
-              <h2 style="color: rgb(252, 166, 180); font-size: 18px;">As Hollywood becomes more diverse, the films we recommend to viewers need to keep up at the same pace. Enter your favorite film above to view similar films and select a filter to view similar films in more diverse categories.</h2>
-              <h3 style="color: rgb(252, 166, 180); font-size: 18px;">There are three different filters available to search: Female Focused returns films directed by women, International returns foreign language films, and Low Budget returns films that are budgeted under $15 million dollars.</h3>
+        <div class="menu">
+          <ul class="nav justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/recommendations">Recommendations</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/femalefocused">Female Focused</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/international">International</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/lowbudget">Low Budget</a>
+            </li>
+            
+            <!-- GRAB MOVIE TITLE & RUN SIMILARITY.PY  -->
+            <form action="{{ url_for('recommendations') }}" method="post">
+                <input type="text" name = 'nm' placeholder="        Search Movie">
+                <input type="submit" value="search" id="submit_button">
+            </form>
+  
+            <div class="content-area">
+              <div class="content">
+                <div class="title-box">
+                <h1 style="color: #B5C6E0ff;">DIVERSITY
+                  <span style="color: white;">IN MOVIES DATABASE</span></h1>
+                <h2 style="color: #B5C6E0ff; font-size: 18px;">As Hollywood becomes more diverse, the films we recommend to viewers need to keep up at the same pace. Enter your favorite film above to view similar international films, low-budget films, and films directed by women.</h2>
+              </div>
             </div>
-            <!-- Get the title of search -->
-          </div>
-          <div id="displayTitle">
-            <span>{{ title }}</span>
-          </div>
-        </ul>
-      </div> <!-- Close menu -->
-    </div> <!-- Close placeholder -->
+            </div>
+          </ul>
+        </div>
+      </div>
+      <div id="index-image" class="center"><img src="../static/images/studio.jpg"/></div>
 
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="./static/data/nofilterdata.js"></script>
-  <script src="./static/js/index.js"></script>
+    
+        <!-- <img src='https://image.tmdb.org/t/p/w185/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg'> -->
 
-  </body>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+    <!-- <script type="text/javascript" src="{{ url_for('static', filename='data/recommendations.json') }}"></script> -->
+    <!-- <script type="text/javascript" src="../static/js/posters.js"></script> -->
+    
+    
+</body>
 </html>

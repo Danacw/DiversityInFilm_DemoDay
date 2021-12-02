@@ -1,96 +1,166 @@
-#import pandas as pd
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, redirect, request, url_for, make_response
 import similarity
-import time
+import time 
+
+# JULIA ADDED: FOR SQL
+import sqlalchemy
+from sqlalchemy import create_engine, func
+from config import db_user, db_password, db_host, db_name, db_port
+import pandas as pd
+
+# Build engine
+engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
+# END OF ADDED: FOR SQL
 
 # Create an instance of Flask
 app = Flask(__name__)
+
+# JULIA ADDED: FOR SQL
+# Route to low budget api
+@app.route("/api/low_budget_filter")
+def api_low_budget_filter():
+  conn = engine.connect()
+
+  # Read in low budget table
+  results = pd.read_sql('SELECT * FROM low_budget_filter', engine)
+
+  # Close the SQL connection
+  conn.close()
+
+  # Convert results to json
+  results_json = results.to_json(orient='records') 
+
+  return results_json
+  
+# Route to female api
+@app.route("/api/female_filter")
+def api_female_filter():
+  conn = engine.connect()
+
+  # Read in low budget table
+  results = pd.read_sql('SELECT * FROM female_filter', engine)
+
+  # Close the SQL connection
+  conn.close()
+
+  # Convert results to json
+  results_json = results.to_json(orient='records') 
+
+  return results_json
+
+# Route to international api
+@app.route("/api/international_filter")
+def api_international_filter():
+  conn = engine.connect()
+
+  # Read in low budget table
+  results = pd.read_sql('SELECT * FROM international_filter', engine)
+
+  # Close the SQL connection
+  conn.close()
+
+  # Convert results to json
+  results_json = results.to_json(orient='records') 
+
+  return results_json
+
+# Route to no filter api
+@app.route("/api/no_filter")
+def api_no_filter():
+  conn = engine.connect()
+
+  # Read in low budget table
+  results = pd.read_sql('SELECT * FROM no_filter', engine)
+
+  # Close the SQL connection
+  conn.close()
+
+  # Convert results to json
+  results_json = results.to_json(orient='records') 
+
+  return results_json
+
+# Route to no filter api
+@app.route("/api/duplicate_search")
+def api_duplicate_search():
+  conn = engine.connect()
+  
+  # Read in low budget table
+  results = pd.read_sql('SELECT * FROM duplicate_search', engine)
+
+  # Close the SQL connection
+  conn.close()
+
+  # Convert results to json
+  results_json = results.to_json(orient='records') 
+
+  return results_json
+# END OF ADDED: FOR SQL
 
 # Route to index.html template
 @app.route("/")
 def index():
   name = request.cookies.get('search')
   # Return index template
-  time.sleep(1)
-  return render_template("index.html", title=f"You searched for: {name}")
+  return render_template("index.html", title=name)
 
 # Route to similarity.py and function for ML and filter
-@app.route("/similarity_scores", methods=['POST', 'GET'])
-def similarity_scores():
-  # Get the title
+@app.route("/recommendations", methods=['POST', 'GET'])
+def recommendations():
   if request.method == 'POST':  
+    # Get the title
     title = request.form['nm']
-    try: 
-      # Define the name of movie
-      name_of_movie = similarity.similarity(title)
-    except IndexError:
-      time.sleep(1)
-      return render_template("index.html", title=f"{title} is not a vaild entry.  Please try again!")
+    # Run the similarity scores
+    success = similarity.similarity(title)
 
-  # Define the response
-  title = title.title()
-  time.sleep(1)
-  resp = make_response(render_template('searched.html', title=f"You searched for: {title}"))
-  resp.set_cookie('search', title)
+    if(success):
+      # Define the response
+      resp = make_response(render_template('recommendations.html'))
+      resp.set_cookie('title', title)
+    else:
+      resp = make_response(render_template('duplicate_movies.html'))
+      resp.set_cookie('title', title)
+  else:
+    # Get the title
+    movie_id = request.cookies.get('id')
+    title = request.cookies.get('title')
+    # Run the similarity scores
+    similarity.similarity(title)
+    # Define the response
+    resp = make_response(render_template('recommendations.html'))
 
   return resp
 
 # Get cookies
 @app.route('/getcookie')
 def getcookie():
-  name = request.cookies.get('search')
-  return name
+  title = request.cookies.get('title')
+  return title
 
 # Route to female focused
 @app.route("/femalefocused")
 def femalefocused():
-  name = request.cookies.get('search')
-  # Direct to femalefocused.html
-  time.sleep(1)
-  return render_template("femalefocused.html", title=name)
+  
+  title = request.cookies.get('title')
+  # Direct to female_filter.html
+  # time.sleep(5)
+  return render_template("female_filter.html")
 
 # Route to international
 @app.route("/international")
 def international():
-  name = request.cookies.get('search')
+  title = request.cookies.get('title')
   # Direct to international.html
-  time.sleep(1)
-  return render_template("international.html", title=name)
+  # time.sleep(5)
+  return render_template("international_filter.html")
 
 # Route to low budget
 @app.route("/lowbudget")
 def lowbudget():
-  name = request.cookies.get('search')
+  title = request.cookies.get('title')
   # Direct to lowbudget.html
-  time.sleep(1)
-  return render_template("low_budget.html", title=name)
-# Route to main explore page
-@app.route("/explore")
-def explore():
-  # Direct to explore.html
-  time.sleep(1)
-  return render_template("explore.html")
-
-# Route to main low-budget explore
-@app.route("/explore/low_budget")
-def explore_lowbudget():
-  # Direct to explore.html
-  time.sleep(1)
-  return render_template("em_low_budget.html")
-
-# Route to popular low-budget explore
-@app.route("/explore/low_budget/popular")
-def explore_pop_lowbudget():
-  # Direct to explore.html
-  time.sleep(1)
-  return render_template("em_pop_low.html")
-
-# Route to unpopular low-budget explore
-@app.route("/explore/low_budget/unpopular")
-def explore_unpop_lowbudget():
-  # Direct to explore.html
-  time.sleep(1)
-  return render_template("em_unpop_low.html")
+  # time.sleep(5)
+  return render_template("low_budget_filter.html")
 
 if __name__ == "__main__":
   app.run(debug=True)

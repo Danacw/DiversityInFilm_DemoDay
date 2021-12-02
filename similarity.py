@@ -1,135 +1,221 @@
-# from app import lowbudget
 import pandas as pd
-import os
-
-#To set up similarity matrix
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-#Could perform train_test_split and metrics.accuracy_score test if needed.   
-#from sklearn.model_selection import train_test_split
-#from sklearn.svm import SVC 
-#from sklearn import metrics
+# DATABASE CONNECTION: ADDED BY JULIA
+# Import config
+from config import api_key, db_user, db_password, db_host, db_port, db_name
+from sqlalchemy import create_engine, inspect
+# configure the connection string
+rds_connection_string = f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
+# connect to the database
+engine = create_engine(rds_connection_string)
+conn = engine.connect()
+# END OF ADDED BY JULIA
 
-def similarity(name_of_movie):
-  #import csv
-  df = pd.read_csv("./data_cleaning/export/movie_db.csv")
-  
-  # Converts user input and title dataframe column to lowercase
-  name_of_movie = name_of_movie.lower()
-  df["title"] = df["title"].str.lower()
+# movie_title = "Shang-Chi and the Legend of the Ten Rings"
+def get_movie_id(movie_title, movie_df):
+    substring = "::"
+    # If the substring is added to the title
+    if substring in movie_title:
+        # Split into title and id (list)
+        title_and_id = movie_title.split("::")
+        # Extract the movie id and convert to int
+        movie_id = int(title_and_id[0])
+        print(movie_id)
+    # If the title is normal
+    else:
+        # Extract the movie id & grab the value
+        movie_id = movie_df['id'].loc[movie_df['lowercase_title'] == movie_title]
+        movie_id = movie_id.values
+        movie_id = movie_id[0]
 
-  #set up new dataframe
-  features = df[['index','title','release_date','cast','total_top_5_female_led','total_female_actors','percentage_female_cast','international','original_language','languages','genres','budget','budget_bins','popularity','tagline','keywords','production_companies','production_company_origin_country', 'director', 'overview']]
+    # Return the movie id to find similar movies
+    return movie_id
 
-  #create combined_features row for similarity matrix
-  def combine_features(row):
-    # return row['cast']+" "+row['keywords']+" "+row['genres']+" "+row['tagline']+" "+row['production_companies']+" "+row['production_company_origin_country']
-    return row['cast']+" "+row['keywords']+" "+row['genres']+" "+row['tagline']+" "+row['production_companies']+" "+row['overview']+" "+row['director']
-  
-  for feature in features:
-    features = features.fillna('')
-    features['combined_features'] = features.apply(combine_features, axis=1)
+# Similarity Function
+def similarity(movie_title):
+    movie_df = pd.read_csv("./static/data/movie_db.csv")
+    movie_title = movie_title.lower()
+    print(movie_title)
 
-  # Added stop words
-  stop_words = {'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', "you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her', 'hers', 'herself', 'it', "it's", 'its', 'itself', 'they', 'them', 'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that', "that'll", 'these', 'those', 'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on', 'off', 'over', 'under', 'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will', 'just', 'don', "don't", 'should', "should've", 'now', 'd', 'll', 'm', 'o', 're', 've', 'y', 'ain', 'aren', "aren't", 'couldn', "couldn't", 'didn', "didn't", 'doesn', "doesn't", 'hadn', "hadn't", 'hasn', "hasn't", 'haven', "haven't", 'isn', "isn't", 'ma', 'mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't", 'shan', "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't"}
-  
-  #create new CountVectorizer matrix
-  cv = CountVectorizer(stop_words=stop_words, analyzer='word', min_df= 10)
-  count_matrix = cv.fit_transform(features['combined_features'])
+    # Find movie (if contains search words)
+    exact_match = len(movie_df.loc[movie_df['lowercase_title'] == movie_title])
 
-  #obtain cosine similarity matrix from the count matrix
-  cosine_sim = cosine_similarity(count_matrix)
+    print(exact_match)
 
-  #get movie title from movie index and vice-versa
-  def get_title_from_index(index): #***** IS THIS USED?????
-    return features[features.index == index]["title"].values[0]
-
-  def get_index_from_title(title):
-    return features[features.title == title]["index"].values[0]
-
-  #find similarity scores for given movie and then enmerate over it.
-  movie_user_likes = name_of_movie  # User input
-  movie_index = get_index_from_title(movie_user_likes)
-  similar_movies = list(enumerate(cosine_sim[movie_index])) 
-  similar_movies
-
-  #Sort the list similar_movies accroding to similarity scores in descending order. Since the most similar movie to a given movie is itself, discard the first elements after sorting movies.
-  sorted_similar_movies = sorted(similar_movies, key=lambda x:x[1], reverse=True)[1:]
-
-  # Create similarity df
-  similarity_df = pd.DataFrame(similar_movies, columns=["index", "similarity_score"])
-  similarity_df.set_index("index", inplace=True)
-
-  # Merge original dataframe with similarity dataframe
-  #merged_df = pd.merge(similarity_df, df)
-  #merged_df.sort_values(by="similarity_score", ascending=False, inplace=True)
-  joined_df = df.join(similarity_df, how='outer')
-  # Changes lower case back to first letter capitalized
-  joined_df["title"] = joined_df["title"].str.title()
-
-  try:
-    os.remove("./static/data/nofilterdata.js")
-    print("nofilterdata.js has been removed")
-    os.remove("./static/data/femaledata.js")
-    print("femaledata.js has been removed")
-    os.remove("./static/data/intldata.js")
-    print("intldata.js has been removed")
-    os.remove("./static/data/lowbudgetdata.js")
-    print("lowbudgetdata.js has been removed")
-  except:
-    print("No data files to remove")
-  
-  # No filter 
-  nofilter = joined_df.sort_values(by="similarity_score", ascending=False)
-  topnofilter = nofilter.iloc[1:21:1].to_json(orient="records")
-  f = open("./static/data/nofilterdata.js", "w")
-  f.write("var data = ")
-  f.write(topnofilter)
-  f.close()
-
-  # Female-Led
-  female_led = joined_df.sort_values(by=["percentage_female_directed", "similarity_score"], ascending=False)
-  female_led.reset_index(inplace=True, drop=True)
-
-  # If the searched title is in the dataset
-  if female_led["title"][0].lower() == movie_user_likes:
-    top_fem = female_led[1:21:1].to_json(orient="records")
-  else:
-    top_fem = female_led[:20].to_json(orient="records")
-
-  f = open("./static/data/femaledata.js", "w")
-  f.write("var data = ")
-  f.write(top_fem)
-  f.close()
-
-  # International
-  international = joined_df.sort_values(by=["international", "similarity_score"], ascending=False)
-  international.reset_index(inplace=True, drop=True)
-
-  # If the searched title is in the dataset
-  if international["title"][0].lower() == movie_user_likes:
-    top_intl = international[1:21:1].to_json(orient="records")
-  else:
-    top_intl = international[:20].to_json(orient="records")
+    substring = "::"
+    if(exact_match == 1):
+        # Get the movie id of the title
+        movie_id = get_movie_id(movie_title, movie_df)
+    elif substring in movie_title:
+        # Get the movie id of the title
+        movie_id = get_movie_id(movie_title, movie_df)
+        exact_match = len(movie_df.loc[movie_df['id'] == movie_id])
+    else:
+        # Check to see if there are multiple movies with the same name
+        movie_ids = movie_df['id'].loc[movie_df['lowercase_title'].str.contains(movie_title)]
     
-  f = open("./static/data/intldata.js", "w")
-  f.write("var data = ")
-  f.write(top_intl)
-  f.close()
+    # Use Count Vectorizer to create counts for each word
+    count = CountVectorizer(stop_words='english')
+    count_matrix = count.fit_transform(movie_df['soup_overview'])
 
-  # Low-Budget
-  low_budget = joined_df.loc[joined_df["budget_bins"] == "0 to 15m"].copy()
-  low_budget = low_budget.sort_values(by=["similarity_score"], ascending=False)
-  low_budget.reset_index(inplace=True, drop=True)
+    # Calculate cosine similarity
+    cosine_sim = cosine_similarity(count_matrix, count_matrix)
 
-  # If the searched title is in the dataset
-  if low_budget["title"][0].lower() == movie_user_likes:
-    top_lowbudget = low_budget[1:21:1].to_json(orient="records")
-  else:
-    top_lowbudget = low_budget[:20].to_json(orient="records")
+    # Reset the index - creates new column for index
+    movie_df = movie_df.reset_index()
+    # Create series with index & ids of movies
+    indices = pd.Series(movie_df.index, index=movie_df['id']).drop_duplicates()
 
-  f = open("./static/data/lowbudgetdata.js", "w")
-  f.write("var data = ")
-  f.write(top_lowbudget)
-  f.close()
+    # Get Similarity Scores
+    def get_similarity_scores(movie_id, cosine_sim):
+        
+        # Get the index of the movie that matches the title
+        idx = indices[movie_id]
+
+        # Get the pairwise similarity scores of all movies with that movie
+        sim_scores = list(enumerate(cosine_sim[idx]))
+        
+        # Sort the movies based on the similarity scores
+        sim_scores = sorted(sim_scores, key=lambda x: x[0], reverse=True)
+
+        # Convert list to DataFrame
+        sim_scores_df = pd.DataFrame(sim_scores, columns = ["index", "similarity_score"])
+        
+        # Return top 10 most similar scores
+        return sim_scores_df
+
+    # Get Recommendations Information
+    def get_recommendations(original_df, score_df):
+        # Merge movie_df with sim_scores_df
+        original_df = original_df.merge(score_df, on="index")
+        # Sort values
+        new_df = original_df.sort_values(by="similarity_score", ascending=False)
+        
+        # Keep selected columns
+        new_df = new_df[['title', 'original_budget', 'adjusted_budget', 'genres', 'homepage', 'id', 'imdb_id', 'original_language', 
+        'overview', 'popularity', 'release_date', 'original_revenue', 'adjusted_revenue', 'runtime', 'spoken_languages', 'status', 
+        'tagline', 'vote_average', 'vote_count', 'keywords', 'cast', 'director', 'director_gender', 'producers', 'writers', 
+        'production_companies', 'poster_url', 'similarity_score', 'year', 'budget_bins', 'foreign_language', 'certification']]
+
+        # Grab searched movie title & df
+        searched_movie = new_df['title'].iloc[0]
+        searched_movie_df = new_df.iloc[0]
+        # print(searched_movie)
+
+        # Filter out any movies not G or PG (for G/PG movies)
+        if (searched_movie_df.certification == "G"):
+            new_df = new_df.loc[(new_df['certification'] == "G") | (new_df['certification'] == "PG")]
+        if (searched_movie_df.certification == "PG"):
+            new_df = new_df.loc[(new_df['certification'] == "G") | (new_df['certification'] == "PG")]
+
+        # Keep movie + top 10
+        no_filter_df = new_df[0:11]
+
+        # female_filter_df = new_df.sort_values(by=["percentage_female_directed", "similarity_score"], ascending=False)
+        female_filter_df = new_df.loc[new_df['director_gender'].str.contains('1')]
+        # international_filter_df = new_df.sort_values(by=["foreign_language", "similarity_score"], ascending=False)
+        international_filter_df = new_df.loc[new_df['foreign_language'] == 1]
+        low_budget_filter_df = new_df.loc[new_df['budget_bins'] == '1 to 15m']
+
+        # Slice into Top 10
+        # Female Filter
+        if(female_filter_df['title'].iloc[0] == searched_movie):
+            female_filter_df = female_filter_df[0:11]
+        else:
+            female_filter_df = female_filter_df[0:11]
+            female_filter_df.iloc[10] = searched_movie_df
+            female_filter_df = female_filter_df.sort_values(by="similarity_score", ascending=False)
+
+        # International Filter
+        if(international_filter_df['title'].iloc[0] == searched_movie):
+            international_filter_df = international_filter_df[0:11]
+        else:
+            international_filter_df = international_filter_df[0:11]
+            international_filter_df.iloc[10] = searched_movie_df
+            international_filter_df = international_filter_df.sort_values(by="similarity_score", ascending=False)
+
+        # Low Budget Filter
+        if(low_budget_filter_df['title'].iloc[0] == searched_movie):
+            low_budget_filter_df = low_budget_filter_df[0:11]
+        else:
+            low_budget_filter_df = low_budget_filter_df[0:11]
+            low_budget_filter_df.iloc[10] = searched_movie_df
+            low_budget_filter_df = low_budget_filter_df.sort_values(by="similarity_score", ascending=False)
+
+        # Push results to json file
+        # no_filter_df.to_json("./static/data/recommendations.json", orient="records")
+        # female_filter_df.to_json("./static/data/female_filter.json", orient="records")
+        # international_filter_df.to_json("./static/data/international_filter.json", orient="records")
+        # low_budget_filter_df.to_json("./static/data/low_budget_filter.json", orient="records")
+
+        # ADDED: SQL
+        # No filter 
+        # Drop previous table
+        engine.execute('DROP TABLE IF EXISTS no_filter')
+        no_filter_df.to_sql(name='no_filter', con=conn, if_exists='append', index=False)
+
+        # Female-Led
+        engine.execute('DROP TABLE IF EXISTS female_filter')
+        female_filter_df.to_sql(name='female_filter', con=conn, if_exists='append', index=False)
+
+        # International
+        engine.execute('DROP TABLE IF EXISTS international_filter')
+        international_filter_df.to_sql(name='international_filter', con=conn, if_exists='append', index=False)
+
+        # Low-Budget
+        engine.execute('DROP TABLE IF EXISTS low_budget_filter')
+        low_budget_filter_df.to_sql(name='low_budget_filter', con=conn, if_exists='append', index=False)
+        # END OF SQL
+
+        # Print titles
+        # print("General Recommendations:")
+        # print(no_filter_df['title'].iloc[1:11])
+        # print("Female Led Recommendations:")
+        # print(female_filter_df['title'].iloc[1:11])
+        # print("International Recommendations:")
+        # print(international_filter_df['title'].iloc[1:11])
+        # print("Low Budget Recommendations:")
+        # print(low_budget_filter_df['title'].iloc[1:11])
+        
+        # Return results with selected columns
+        # return no_filter_df[['title', 'original_budget', 'adjusted_budget', 'genres', 'homepage', 'id', 'imdb_id', 'original_language', 
+        # 'overview', 'popularity', 'release_date', 'original_revenue', 'adjusted_revenue', 'runtime', 'spoken_languages', 'status', 'tagline', 'vote_average', 
+        # 'vote_count', 'keywords', 'cast', 'director', 'producers', 'writers', 'production_companies', 'poster_url', 'similarity_score', 'year']]
+        
+    # If there are multiple movies with the same title
+    # if (len(movie_ids) > 1):
+    if (exact_match != 1):
+        # Find each movie with the same title
+        find_movie = movie_df.loc[movie_df["lowercase_title"].str.contains(movie_title)]
+        # print(find_movie)
+
+        # Push results to json file
+        # find_movie.to_json("./static/data/duplicates.json", orient="records")
+        # SQL DUPLICATES:
+        engine.execute('DROP TABLE IF EXISTS duplicate_search')
+        find_movie.to_sql(name='duplicate_search', con=conn, if_exists='append', index=False)
+
+        # Return false to app.py (loads separate page)
+        return False
+    else:
+        print(movie_id)
+        # Calculate similarity scores
+        similarity_scores_df = get_similarity_scores(movie_id, cosine_sim)
+        # Get list of recommended titles
+        get_recommendations(movie_df, similarity_scores_df)
+        # print(recommendations)
+
+        # Push results to json file
+        # recommendations.to_json("./static/data/recommendations.json", orient="records")
+
+        # Close the SQL connection
+        conn.close()
+        
+        # Return true to app.py (loads original page)
+        return True
+        
+
+# Run the functions outside of app.py
+# similarity("Toy Story 3")
