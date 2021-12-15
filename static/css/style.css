@@ -103,6 +103,19 @@ a.movie_buttons:hover {
     border-color: white;
 }
 
+a.sort_buttons {
+    background: -webkit-linear-gradient(#EBF4F5ff, #E2ECF2ff, #D9E5EEff, #D0DDEBff, #C7D5E7ff, #BECEE4ff, #B5C6E0ff);
+    border-color: white;
+    color:black;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+a.sort_buttons:hover {
+    background: -webkit-linear-gradient(#EBF4F5ff, #E2ECF2ff, #D9E5EEff, #D0DDEBff, #C7D5E7ff, #BECEE4ff, #B5C6E0ff);
+    border-color: white;
+}
+
 .placeholder {
     width: 100%;
     /* height: 200vh; */
@@ -149,6 +162,16 @@ h1 {
     width: 100%;
     padding: 15px;
     margin-bottom: 0px;
+}
+
+#sort_buttons_p {
+    color: #B5C6E0ff;
+    font-family: Spartan;
+    font-size: 100;
+    font-weight: 100;
+    display: inline-block;
+    width: 100%;
+    margin-left: 20px;
 }
 
 .heading-box {
@@ -198,6 +221,7 @@ li {
     background: -webkit-linear-gradient(#EBF4F5ff, #E2ECF2ff, #D9E5EEff, #D0DDEBff, #C7D5E7ff, #BECEE4ff, #B5C6E0ff);
     border: 1px;
 }
+
 
 /* Search Input */
 input {

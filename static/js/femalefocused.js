@@ -54,7 +54,7 @@ function buildBubble(data) {
     x: revenue,
     y: budget,
     text: Hoverinfo,
-    type: 'scatter',
+    type: 'scatter',per
     mode: 'markers',
     marker: {
       size: score,

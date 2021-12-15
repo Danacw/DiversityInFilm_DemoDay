@@ -190,5 +190,49 @@ d3.selectAll("a.movie_buttons").on("click", function() {
     // Print out cookies
     let cookie = document.cookie;
     console.log(cookie);
+
+// VIEW BUTTON FUNCTIONS // 
+
+    //mapView function
+    function onMapView(event) {
+        // const listData = JSON.parse(JSON.stringify(recommendations_data))
+        // console.log("_sort recommendations_data", recommendations_data)
+        // listData.sort(function (a, b) {
+        //     // add extra datatype conversion to female_sort
+        //     var percentA = +a.percent_fm.slice(0,-1)
+        //     var percentB = +b.percent_fm.slice(0,-1)
+        //     return percentB - percentA
+        // })
+        // d3.selectAll(".rec-cards").remove()
+        // console.log("fm_sort listData", listData)
+        // refreshPosters(listData, true)
+    }
+    //Similarity sort function
+    function onSimilarityView(event) {
+        const listData = JSON.parse(JSON.stringify(recommendations_data))
+        console.log("sim_sort recommendations_data", recommendations_data)
+        listData.sort(function (a, b) {
+            return b.similarity_score - a.similarity_score
+        })
+        console.log("WAT2 listData", listData)
+        // refreshPosters(listData)
+        d3.selectAll(".rec-cards").remove()
+        console.log("sim_sort listData", listData)
+        refreshPosters(listData, false)
+    }
+    
+    // Append map view button
+    poster_section_title.append("a")
+        .text("Map View")
+        .classed("btn btn-primary sort_buttons", true)
+        .attr("id", "female_sort_btn")
+        .on("click", onFemaleSort)
+
+    // Append similarity view button
+    poster_section_title.append("a")
+        .text("Similarity Sort")
+        .classed("btn btn-primary sort_buttons", true)
+        .attr("id", "similarity_sort_btn")
+        .on("click", onSimilaritySort)
     
 }) // END OF CODE

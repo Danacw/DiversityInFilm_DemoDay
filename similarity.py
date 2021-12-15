@@ -8,9 +8,7 @@ from config import api_key, db_user, db_password, db_host, db_port, db_name
 from sqlalchemy import create_engine, inspect
 # configure the connection string
 rds_connection_string = f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
-# connect to the database
-engine = create_engine(rds_connection_string)
-conn = engine.connect()
+
 # END OF ADDED BY JULIA
 
 # movie_title = "Shang-Chi and the Legend of the Ten Rings"
@@ -35,6 +33,9 @@ def get_movie_id(movie_title, movie_df):
 
 # Similarity Function
 def similarity(movie_title):
+    # connect to the database
+    engine = create_engine(rds_connection_string)
+    conn = engine.connect()
     movie_df = pd.read_csv("./static/data/movie_db.csv")
     movie_title = movie_title.lower()
     print(movie_title)
@@ -48,14 +49,16 @@ def similarity(movie_title):
     if(exact_match == 1):
         # Get the movie id of the title
         movie_id = get_movie_id(movie_title, movie_df)
+        print("movie_id_01")
     elif substring in movie_title:
         # Get the movie id of the title
         movie_id = get_movie_id(movie_title, movie_df)
+        print("movid_id_02")
         exact_match = len(movie_df.loc[movie_df['id'] == movie_id])
     else:
         # Check to see if there are multiple movies with the same name
         movie_ids = movie_df['id'].loc[movie_df['lowercase_title'].str.contains(movie_title)]
-    
+        print("movie_id_03")
     # Use Count Vectorizer to create counts for each word
     count = CountVectorizer(stop_words='english')
     count_matrix = count.fit_transform(movie_df['soup_overview'])
@@ -71,6 +74,7 @@ def similarity(movie_title):
     # Get Similarity Scores
     def get_similarity_scores(movie_id, cosine_sim):
         
+        print('start similarity scores')
         # Get the index of the movie that matches the title
         idx = indices[movie_id]
 
@@ -83,11 +87,14 @@ def similarity(movie_title):
         # Convert list to DataFrame
         sim_scores_df = pd.DataFrame(sim_scores, columns = ["index", "similarity_score"])
         
+        print('end similarity scores')
         # Return top 10 most similar scores
         return sim_scores_df
 
     # Get Recommendations Information
     def get_recommendations(original_df, score_df):
+        print('start get recommedations')
+
         # Merge movie_df with sim_scores_df
         original_df = original_df.merge(score_df, on="index")
         # Sort values
@@ -96,7 +103,7 @@ def similarity(movie_title):
         # Keep selected columns
         new_df = new_df[['title', 'original_budget', 'adjusted_budget', 'genres', 'homepage', 'id', 'imdb_id', 'original_language', 
         'overview', 'popularity', 'release_date', 'original_revenue', 'adjusted_revenue', 'runtime', 'spoken_languages', 'status', 
-        'tagline', 'vote_average', 'vote_count', 'keywords', 'cast', 'director', 'director_gender', 'producers', 'writers', 
+        'tagline', 'vote_average', 'vote_count', 'keywords', 'cast', 'director', 'director_gender', 'percent_fm', 'producers', 'writers', 
         'production_companies', 'poster_url', 'similarity_score', 'year', 'budget_bins', 'foreign_language', 'certification']]
 
         # Grab searched movie title & df
@@ -153,21 +160,24 @@ def similarity(movie_title):
         # ADDED: SQL
         # No filter 
         # Drop previous table
+        print("drop_table_00")
         engine.execute('DROP TABLE IF EXISTS no_filter')
+        print("drop_table_00.5")
         no_filter_df.to_sql(name='no_filter', con=conn, if_exists='append', index=False)
-
+        print("drop_table_01")
         # Female-Led
         engine.execute('DROP TABLE IF EXISTS female_filter')
         female_filter_df.to_sql(name='female_filter', con=conn, if_exists='append', index=False)
-
+        print("drop_table_02")
         # International
         engine.execute('DROP TABLE IF EXISTS international_filter')
         international_filter_df.to_sql(name='international_filter', con=conn, if_exists='append', index=False)
-
+        print("drop_table_03")
         # Low-Budget
         engine.execute('DROP TABLE IF EXISTS low_budget_filter')
         low_budget_filter_df.to_sql(name='low_budget_filter', con=conn, if_exists='append', index=False)
         # END OF SQL
+        print('end get recommedations')
 
         # Print titles
         # print("General Recommendations:")
@@ -209,10 +219,11 @@ def similarity(movie_title):
 
         # Push results to json file
         # recommendations.to_json("./static/data/recommendations.json", orient="records")
-
+        print('before')
         # Close the SQL connection
         conn.close()
-        
+
+        print('after') 
         # Return true to app.py (loads original page)
         return True
         

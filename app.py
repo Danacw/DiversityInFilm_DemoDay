@@ -10,6 +10,7 @@ import pandas as pd
 
 # Build engine
 engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
+
 # END OF ADDED: FOR SQL
 
 # Create an instance of Flask
@@ -37,7 +38,7 @@ def api_low_budget_filter():
 def api_female_filter():
   conn = engine.connect()
 
-  # Read in low budget table
+  # Read in female table
   results = pd.read_sql('SELECT * FROM female_filter', engine)
 
   # Close the SQL connection
@@ -53,7 +54,7 @@ def api_female_filter():
 def api_international_filter():
   conn = engine.connect()
 
-  # Read in low budget table
+  # Read in international table
   results = pd.read_sql('SELECT * FROM international_filter', engine)
 
   # Close the SQL connection
@@ -69,7 +70,7 @@ def api_international_filter():
 def api_no_filter():
   conn = engine.connect()
 
-  # Read in low budget table
+  # Read in no filter table
   results = pd.read_sql('SELECT * FROM no_filter', engine)
 
   # Close the SQL connection
@@ -80,12 +81,12 @@ def api_no_filter():
 
   return results_json
 
-# Route to no filter api
+# Route to no duplicate api
 @app.route("/api/duplicate_search")
 def api_duplicate_search():
   conn = engine.connect()
   
-  # Read in low budget table
+  # Read in duplicate search table
   results = pd.read_sql('SELECT * FROM duplicate_search', engine)
 
   # Close the SQL connection
