@@ -53,6 +53,12 @@ body {
     margin-left: 100px;
 }
 
+#map-id {
+    height: 500px;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
 /* CSS HEX */
 /* --baby-blue-eyes: #9FCCFAff;
 --french-sky-blue: #86BDF9ff;

@@ -1,6 +1,8 @@
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import json
+import ast
 
 # DATABASE CONNECTION: ADDED BY JULIA
 # Import config
@@ -97,11 +99,25 @@ def similarity(movie_title):
 
         # Merge movie_df with sim_scores_df
         original_df = original_df.merge(score_df, on="index")
+
         # Sort values
         new_df = original_df.sort_values(by="similarity_score", ascending=False)
-        
+
+         # Prduction Countries 
+        new_df['country_list'] = ([json.dumps([country['name'] for country in ast.literal_eval(countries)]) for countries in new_df['production_countries']])
+        new_df['countries'] = new_df['country_list'].str.replace("[\[\]\"']", "")
+        print(new_df['countries'])
+
+        # Genre
+        new_df['genres'] = new_df['genres'].str.replace("[\[\]\"']", "")
+        print(new_df['genres'][0])
+
+        # Production Companies
+        new_df['production_companies'] = new_df['production_companies'].str.replace("[\[\]\"']", "")
+        print(new_df['production_companies'][0])
+
         # Keep selected columns
-        new_df = new_df[['title', 'original_budget', 'adjusted_budget', 'genres', 'homepage', 'id', 'imdb_id', 'original_language', 
+        new_df = new_df[['title', 'original_budget', 'adjusted_budget', 'production_countries', 'country_list', 'countries', 'genres', 'homepage', 'id', 'imdb_id', 'original_language', 
         'overview', 'popularity', 'release_date', 'original_revenue', 'adjusted_revenue', 'runtime', 'spoken_languages', 'status', 
         'tagline', 'vote_average', 'vote_count', 'keywords', 'cast', 'director', 'director_gender', 'percent_fm', 'producers', 'writers', 
         'production_companies', 'poster_url', 'similarity_score', 'year', 'budget_bins', 'foreign_language', 'certification']]
@@ -158,7 +174,7 @@ def similarity(movie_title):
         # low_budget_filter_df.to_json("./static/data/low_budget_filter.json", orient="records")
 
         # ADDED: SQL
-        # No filter 
+        # No filter im
         # Drop previous table
         print("drop_table_00")
         engine.execute('DROP TABLE IF EXISTS no_filter')
