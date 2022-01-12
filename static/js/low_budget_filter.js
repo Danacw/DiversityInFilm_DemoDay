@@ -17,9 +17,9 @@ d3.json(api_location).then(function (recommendations_data) {
     var searched_poster = d3.select(".searchedPoster");
 
     // Append the Poster Section Heading
-    poster_section_title.append("h1").text(`LOW BUDGET FILMS LIKE "${searched_title}":`);
+    poster_section_title.append("h2").text(`Low Budget Films Like "${searched_title}":`);
     poster_section_title.append("p")
-        .text(`Sort low budget films similar to ${searched_title} by similarity score or by budget.`)
+        .text(`Sort low budget films by similarity score or by budget.`)
         .attr("id", "sort_buttons_p");
 
     // Function to convert numbers to percent
@@ -227,7 +227,7 @@ d3.json(api_location).then(function (recommendations_data) {
             return b.similarity_score - a.similarity_score;
         });
         console.log("sim_sort listData1", listData);
-        refreshPosters(listData)
+        refreshPosters(listData);
         d3.selectAll(".rec-cards").remove();
         console.log("sim_sort listData2", listData);
         refreshPosters(listData, false);

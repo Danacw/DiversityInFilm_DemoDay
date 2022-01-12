@@ -225,10 +225,10 @@ d3.json(api_location).then(function (recommendations_data) {
     refreshPosters(recommendations_data);
 
     // Append the Poster Section Heading and paragraph
-    poster_section_title.append("h1")
-        .text(`FEMALE DIRECTED FILMS LIKE "${searched_title}":`);
+    poster_section_title.append("h2")
+        .text(`Female Directed Films Like "${searched_title}":`);
     poster_section_title.append("p")
-        .text(`Sort female-directed films similar to ${searched_title} by similarity score or by female percentage of cast and crew members.`)
+        .text(`Sort female-directed films by similarity score or by female percentage of cast and crew members.`)
         .attr("id", "sort_buttons_p");
 
     // SORT BUTTON FUNCTIONS // 

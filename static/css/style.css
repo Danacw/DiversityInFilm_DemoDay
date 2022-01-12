@@ -12,8 +12,29 @@ body {
     background-color: #EBF4F5ff;
 }
 
-#index-image img {
-    width: 100%;
+/*Homepage images */
+.parent {
+    position: relative;
+  }
+
+/* #index-image {
+    position: relative;
+} */
+
+#logo-img {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    border: 1px balck solid;
+    max-width: 10%;
+}
+
+#logo-p {
+    position: absolute;
+    bottom: 0;
+    right: 140px;
+    margin-right: 20px;
+    color: white
 }
 
 /* Main Poster */
@@ -114,7 +135,7 @@ a.sort_buttons {
     border-color: white;
     color:black;
     margin-bottom: 10px;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 a.sort_buttons:hover {
@@ -123,22 +144,22 @@ a.sort_buttons:hover {
 }
 
 .placeholder {
-    width: 100%;
+    /* width: 100%; */
     /* height: 200vh; */
     /* background: url(../images/studio.jpg) center center fixed; */
     background: #EBF4F5ff;
-    -webkit-background-size: cover;
+    /* -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     background-position: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
 }
 
 .content-area {
     height: 100%;
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
     align-items: center;
 }
 
@@ -152,22 +173,33 @@ a.sort_buttons:hover {
 
 .nav-item {
     color: white;
-    position: center;
+    position: relative;
+    padding-top: 5px;
     font-family: Spartan;
     font-size: 17px;
     font-weight: 100;
     background: -webkit-linear-gradient(#EBF4F5ff, #E2ECF2ff, #D9E5EEff, #D0DDEBff, #C7D5E7ff, #BECEE4ff, #B5C6E0ff);
 }
 
+#search-form {
+    background: -webkit-linear-gradient(#EBF4F5ff, #E2ECF2ff, #D9E5EEff, #D0DDEBff, #C7D5E7ff, #BECEE4ff, #B5C6E0ff);
+}
+
 h1 {
     color: #B5C6E0ff;
     font-family: Spartan;
-    font-size: 300;
-    font-weight: 100;
-    display: inline-block;
+    font-size: 1em;
+    font-weight: 50;
+    /* display: inline-block; */
     width: 100%;
-    padding: 15px;
-    margin-bottom: 0px;
+    padding: 5px;
+    margin-top: 10px;
+    /* font-size: 300;
+    font-weight: 100;
+    /* display: inline-block; */
+    /* width: 100%; */
+    /* padding: 5px;
+    margin-bottom: 0px; */
 }
 
 #sort_buttons_p {
@@ -177,12 +209,14 @@ h1 {
     font-weight: 100;
     display: inline-block;
     width: 100%;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .heading-box {
     background-color: #233D58;
     margin-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 5px;
     box-shadow: 0 4px 2px -2px gray;
 }
 
@@ -197,28 +231,33 @@ h2 {
     font-family: Spartan;
     font-size: 1em;
     font-weight: 50;
-    display: inline-block;
+    /* display: inline-block; */
     width: 100%;
-    padding: 8px;
+    padding: 5px;
 }
 
 ul {
+
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
 
-li {
+/* li {
     float: left;
+} */
+
+.menu {
+    background: -webkit-linear-gradient(#EBF4F5ff, #E2ECF2ff, #D9E5EEff, #D0DDEBff, #C7D5E7ff, #BECEE4ff, #B5C6E0ff);
 }
 
-.menu input[type=text] {
+/* .menu input[type=text] {
     float: left;
     padding: 6px;
     font-size: 17px;
     width: 450px;
-}
+} */
 
 #submit_button {
     font-family: Spartan;
@@ -231,7 +270,7 @@ li {
 
 /* Search Input */
 input {
-    /* border:none; */
+    width: 50%;
 }
 
 @media (max-width: 1350px) {

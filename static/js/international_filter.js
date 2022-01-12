@@ -17,7 +17,7 @@ d3.json(api_location).then(function (recommendations_data) {
     var searched_poster = d3.select(".searchedPoster");
 
     // Append the Poster Section Heading
-    poster_section_title.append("h1").text(`FOREIGN LANGUAGE FILMS LIKE "${searched_title}":`);
+    poster_section_title.append("h2").text(`Foreign Language Films Like "${searched_title}":`);
 
     // Function to convert numbers to percent
     function toPercent(number, float) {
