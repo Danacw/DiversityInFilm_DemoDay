@@ -52,12 +52,11 @@ Jacob | Host application on Heroku | 1. Add dependencies in requiqments.txt file
 ## Screenshots 
 ![Screen Shot 2022-01-14 at 1 10 00 PM](https://user-images.githubusercontent.com/26308909/149588556-d5c0475b-f31b-4bf9-875b-7880949b7d5c.png)
 
-https://user-images.githubusercontent.com/26308909/149587899-2133e37c-9d55-4e88-b9f5-842f9bdf9221.mov
+https://user-images.githubusercontent.com/26308909/149589025-237823eb-8e96-47a6-8b51-5d68eb2fc449.mov
 
-https://user-images.githubusercontent.com/26308909/149587943-a168fb8e-cd99-4903-8562-20da5af4aaf3.mov
+https://user-images.githubusercontent.com/26308909/149589286-798a4a7d-770f-49b7-9cf3-76e3e9b5cf5c.mov
 
-https://user-images.githubusercontent.com/26308909/149588432-295f1f2b-3a91-4ef6-a03d-527334056a8b.mov
-
+https://user-images.githubusercontent.com/26308909/149589301-0fd050a5-02e4-4b50-94bb-93015631370b.mov
 
 
 ## Data Attribution
