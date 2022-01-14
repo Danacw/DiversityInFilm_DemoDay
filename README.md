@@ -36,18 +36,6 @@ Our final application includes the following:
 **similarity.py**
 -	Our similarity matrix that sorts by similar movies from the user’s input.  
 
-## Workflow
-Owner | Description | Task
-------|-------------|-----
-Julia | Data Exploation | 1. Call Movie Database API and review available data. 2. Perform basic data cleaning based on necessary independent variables. 3. Build up database (csv format) with films/data.
-Christopher | Create Homepage | 1. Create html and css templates for index.html. 2. Add nav bar + search bar. 3. Create a default route in flask app that routes user input to all other endpoints.
-Dana | Build ML Model in Jupyter Notebook | 1. Create a similarity matrix using sklearn’s CountVectorizer and cosine_similarity libraries. 2. Transfer ML Model to similarity.py
-Robin | Create Flask App | 1. Build app.py and route data to each endpoint. 2. Route to similarity.py and filter results using methods=['POST', 'GET']
-Emory | Low Budget Endpoint | 1. Build JavaScript app. 2. Add an endpoint to the flask app. 3. Build html and css for Low Budget page.
-Carmela | International Endpoint | 1. Build JavaScript app. 2. Add an endpoint to the flask app. 3. Build html and css for Female Focused page. 
-Robin | Female Focused Endpoint | 1. Build JavaScript app. 2. Add an endpoint to the flask app. 3. Build html and css for Female Focused page.
-Jacob | Host application on Heroku | 1. Add dependencies in requiqments.txt file. 2. Debug and deploy app from GitHub to Heroku.
-
 
 ## Screenshots 
 ![Screen Shot 2022-01-14 at 1 10 00 PM](https://user-images.githubusercontent.com/26308909/149588556-d5c0475b-f31b-4bf9-875b-7880949b7d5c.png)
