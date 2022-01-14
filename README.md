@@ -6,9 +6,9 @@ We first obtained data from The Movie Database API and exported a final csv cont
 
 Our final application includes the following:
 - A recommendation page which sorts films by similarity scores only. 
-- A Female Focused page that displays female-directed films and percentage of female cast and crew members.
-- An International page which displays an interactive map of similar foreign language films.
-- A Low Budget page that displays films with budgets less than $15 million. 
+- A female focused page that displays female-directed films and percentage of female cast and crew members.
+- An international page which displays an interactive map of similar foreign language films.
+- A low budget page that displays films with budgets less than $15 million. 
 
 ## Folder Structure
 
