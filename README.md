@@ -1,8 +1,8 @@
 # Reel Change | Diversity in Film Database
 
-Content platforms such as Netflix or Hulu use AI to recommend programs that appeal to each viewer’s unique taste. However, most of these recommendation algorithms lack an ability to suggest a more diverse array of films to viewers. Our machine learning application bridges this gap by suggesting foreign films, low-budget films, and films directed by women to users. 
+Content platforms such as Netflix or Hulu use AI to recommend programs that appeal to viewer’s individual tastes. However, most of these recommendation algorithms lack an ability to suggest a more diverse array of films outside of viewers typical preferences. Our machine learning application bridges this gap by suggesting foreign films, low-budget films, and films directed by women to users. 
 
-We first obtained data from The Movie Database API and exported a final csv containing data on female directed films, foreign language films, and films ranging in budget. We then created a similarity matrix through Scikit-Learn’s CountVectorizer and cosine_similarity tools, which returned a sorted list of films based on each film’s unique similarity score. Data was then sorted for each endpoint in our final Flask application by percent_female_directed, foreign language, and budget bins from 0 to 15 million.
+We first obtained data from The Movie Database API and conneted tables on female directed films, foreign language films, and low-budget films to a SQL database. We then created a similarity matrix through Scikit-Learn’s CountVectorizer and cosine_similarity tools, which returned a sorted list of films based on each film’s unique similarity score. Data was sorted for each endpoint in our final Flask application by percent_female_directed, foreign language, and budget bins from 0 to 15 million.
 
 Our final application includes the following:
 - A recommendation page which sorts films by similarity scores only. 
