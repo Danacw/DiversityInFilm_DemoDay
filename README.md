@@ -1,4 +1,4 @@
-# Diversity in Film Database
+# Reel Change | Diversity in Film Database
 
 Content platforms such as Netflix or Hulu use AI to recommend programs that appeal to each viewer’s unique taste. However, most of these recommendation algorithms lack an ability to suggest a more diverse array of films to viewers. Our machine learning application bridges this gap by suggesting foreign films, low-budget films, and films directed by women to users. 
 
