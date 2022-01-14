@@ -5,12 +5,10 @@ Content platforms such as Netflix or Hulu use AI to recommend programs that appe
 We first obtained data from The Movie Database API and exported a final csv containing data on female directed films, foreign language films, and films ranging in budget. We then created a similarity matrix through Scikit-Learn’s CountVectorizer and cosine_similarity tools, which returned a sorted list of films based on each film’s unique similarity score. Data was then sorted for each endpoint in our final Flask application by percent_female_directed, foreign language, and budget bins from 0 to 15 million.
 
 Our final application includes the following:
-- An index page which sorts films by similarity scores only. 
-- A Female Focused page that displays a graph of films directed by women and their corresponding budget and revenue, plus a table of similar films.
+- A recommendation page which sorts films by similarity scores only. 
+- A Female Focused page that displays female-directed films and percentage of female cast and crew members.
 - An International page which displays an interactive map of similar foreign language films.
-- A Low Budget page that displays films with budgets less than $15 million. Plus an explore page that allows users to view a table of the most popular and least popular similar low budget films.
-
-Users can view and interact with our final application here: https://movies-ml.herokuapp.com/
+- A Low Budget page that displays films with budgets less than $15 million. 
 
 ## Folder Structure
 
@@ -21,10 +19,9 @@ Users can view and interact with our final application here: https://movies-ml.h
 -	Contains our intial similiarty_matrix.ipynb file.
 
 **static**
--	css: Contains our CSS files for styling each page.
--	data: Contains JSON files that dynamically update each time the user enters a new search. 
+-	css: Contains our CSS files for styling each page
+-	data: Contains csv files
 -	images: Contains our homepage image
--	img: Contains images for markers added to our Leaflet map for the international endpoint.
 -	js: Contains our JavaScript files for our index page and each additional endpoint.
 
 **templates**
@@ -53,18 +50,15 @@ Jacob | Host application on Heroku | 1. Add dependencies in requiqments.txt file
 
 
 ## Screenshots 
-![Screen Shot 2021-08-26 at 6 36 39 PM](https://user-images.githubusercontent.com/26308909/131066166-1bb79c15-40e8-45fc-8fda-b3fe58b423f4.png)
 
-![Screen Shot 2021-08-26 at 6 37 30 PM](https://user-images.githubusercontent.com/26308909/131066179-6d0ef95a-9508-4ffb-9e1d-701a8ffece71.png)
+https://user-images.githubusercontent.com/26308909/149587899-2133e37c-9d55-4e88-b9f5-842f9bdf9221.mov
 
-![Screen Shot 2021-08-26 at 6 40 09 PM](https://user-images.githubusercontent.com/26308909/131066190-85177193-e1b7-4b9d-a523-ad4483b4bc51.png)
+https://user-images.githubusercontent.com/26308909/149587943-a168fb8e-cd99-4903-8562-20da5af4aaf3.mov
 
-![Screen Shot 2021-08-26 at 6 40 40 PM](https://user-images.githubusercontent.com/26308909/131066200-b03aa624-68b3-43d9-807d-e5b075b1068e.png)
+https://user-images.githubusercontent.com/26308909/149588128-fcc9d449-097a-44b7-bdf8-dc937562e597.mov
 
 
 ## Data Attribution
-![Screen Shot 2021-08-26 at 8 28 18 PM](https://user-images.githubusercontent.com/26308909/131067407-d8ee14bc-880e-4868-9fbd-fccbe0067a7a.png)
-
 _Data collected from [The Movie Database](https://www.themoviedb.org/)_
 
 
