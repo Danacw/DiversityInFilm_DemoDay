@@ -222,7 +222,7 @@ def similarity(movie_title):
         # SQL DUPLICATES:
         engine.execute('DROP TABLE IF EXISTS duplicate_search')
         find_movie.to_sql(name='duplicate_search', con=conn, if_exists='append', index=False)
-
+        
         # Return false to app.py (loads separate page)
         return False
     else:

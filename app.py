@@ -119,8 +119,11 @@ def recommendations():
       resp = make_response(render_template('recommendations.html'))
       resp.set_cookie('title', title)
     else:
-      resp = make_response(render_template('duplicate_movies.html'))
-      resp.set_cookie('title', title)
+        resp = make_response(render_template('duplicate_movies.html'))
+        resp.set_cookie('title', title)
+
+        # resp = make_response(render_template('no_results.html'))
+          
   else:
     # Get the title
     movie_id = request.cookies.get('id')
