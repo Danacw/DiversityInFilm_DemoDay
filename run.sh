@@ -1,0 +1,1 @@
+FLASK_APP=movie_app/app.py flask run

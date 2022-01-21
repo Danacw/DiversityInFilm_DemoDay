@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@300&display=swap');
+
+.jumbotron h1 {
+    font-family: Spartan;
+    color:  rgb(252, 166, 180);
+    font-weight: bolder;
+    padding: 20px;
+}
+
+.jumbotron {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-family: Spartan;
+    font-size: 18px;
+    font-weight: bolder;
+    color: black;
+    background-color: #e9ecef;
+    margin: 0;
+    padding-top: 20px;
+}
+
+/* Low-budget table */
+.lowBudgetTable {
+    font-family: Spartan;
+    text-align: center;
+    font-size: 14px;
+    background-color: white;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 10px;
+}
+/* Adds border and padding to all cells */
+.lowBudgetTable td, .lowBudgetTable th {
+    border: 1px solid	#A9A9A9;
+    padding: 2px;
+}
+/* Every other row light gray */
+.lowBudgetTable tr:nth-child(even) {
+    background-color: 	#F0F0F0;
+}
+/* Table header row */
+.lowBudgetTable th {
+    text-align: center;
+    background-color: #9ED9CCFF;
+    font-weight: bolder;
+}
+
+/* Changes when hovered */
+.lowBudgetTable tr:hover {
+    background-color: #FFE9EC;
+    color: 	#000000;
+}

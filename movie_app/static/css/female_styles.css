@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@300&display=swap');
+
+.jumbotron {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+h1 {
+  font-family: Spartan;
+  font-size: 60px;
+  color: rgb(252, 166, 180);
+  font-weight: bolder;
+  padding: 20px;
+}
+h3 {
+  font-family: Spartan;
+  font-size: 16px;
+  font-weight: bolder;
+  color: black;
+  background-color: #e9ecef;
+  vertical-align: bottom;
+  margin: 0;
+}
+/* Femalefilter table */
+.femaletable {
+  font-family: Spartan;
+  text-align: center;
+  font-size: 14px;
+  background-color: white;
+  border-collapse: collapse;
+  width: 100%;
+}
+/* Adds border and padding to all cells */
+.femaletable td, .nofiltertable th {
+  border: 1px solid	#A9A9A9;
+  padding: 2px;
+}
+/* Every other row light gray */
+.femaletable tr:nth-child(even) {
+  background-color: 	#F0F0F0;
+}
+/* Table header row */
+.femaletable th {
+  text-align: center;
+  background-color: #9ED9CCFF;
+  font-weight: bolder;
+}
+/* Changes when hovered */
+.femaletable tr:hover {
+  background-color: #FFE9EC;
+  color: 	#000000;
+}
+.btn-container { 
+  background-color: white;
+  height: 80px;
+  position: relative; 
+}
+.center {
+  text-align: center;
+}
+.span {
+  font-family: Spartan;
+  font-size: 20px;
+  font-weight: bolder;
+}
+.btn1 {
+  background-color: 	#F0F0F0;
+  border: none;
+  color: black;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 3px;
+}
+.btn2 {
+  background-color: 	#F0F0F0;
+  border: none;
+  color: black;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 3px;
+}
+.btn3 {
+  background-color: 	#F0F0F0;
+  border: none;
+  color: black;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 3px;
+}
+.btn4 {
+  background-color: 	#F0F0F0;
+  border: none;
+  color: black;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 3px;
+}
+.btn1:hover {
+  color: rgb(252, 166, 180);
+}
+.btn2:hover {
+  color: rgb(252, 166, 180);
+}
+.btn3:hover {
+  color: rgb(252, 166, 180);
+}
+.btn4:hover {
+  color: rgb(252, 166, 180);
+}
