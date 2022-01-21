@@ -8,20 +8,17 @@ from sqlalchemy import create_engine, func
 import pandas as pd
 import os
 
-# Build engine
-if os.getenv("DATABASE_URL"):
-  engine = create_engine(os.getenv("DATABASE_URL"))
-  if engine.startswith("postgres://"):
-      engine = engine.replace("postgres://", "postgresql://", 1)
-#comment out local access
-else:
-  from config import db_user, db_password, db_host, db_name, db_port
-  engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
+# Build engine locally
+# from config import db_user, db_password, db_host, db_name, db_port
+# engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
 
-# engine = create_engine(DATABASE_URL)
+#Heroku Deployment
+DATABASE_URL = os.environ['DATABASE_URL']
 
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
-# END OF ADDED: FOR SQL
+engine = create_engine(DATABASE_URL)
 
 # Create an instance of Flask
 app = Flask(__name__)

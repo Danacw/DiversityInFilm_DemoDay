@@ -10,22 +10,13 @@ import os
 from sqlalchemy import create_engine
 # configure the connection string
 # rds_connection_string = f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
-if os.getenv("DATABASE_URL"):
-    rds_connection_string = os.environ("DATABASE_URL")
-    if rds_connection_string.startswith("postgres://"):
-        rds_connection_string = rds_connection_string.replace("postgres://", "postgresql://", 1)
-#comment out local access
-else: 
-    from config import db_user, db_password, db_host, db_port, db_name 
-    rds_connection_string = f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
-
-# Heroku:
-# DATABASE_URL = os.environ['DATABASE_URL']
-
-# if DATABASE_URL.startswith("postgres://"):
-#     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
-
 # END OF ADDED BY JULIA
+
+# Heroku Deployment
+DATABASE_URL = os.environ['DATABASE_URL']
+
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 # movie_title = "Shang-Chi and the Legend of the Ten Rings"
 def get_movie_id(movie_title, movie_df):
