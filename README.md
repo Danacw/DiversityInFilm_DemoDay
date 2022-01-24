@@ -12,7 +12,7 @@ Our final application includes the following:
 
 ## Folder Structure
 
-**move_app/data_cleaning**
+**movie_app/data_cleaning**
 -	Contains our final data cleaning Jupyter notebook, DataCleaningNew.ipynb. Here we generated data from the Movie Database API and developed a recommender system through Scikit Learn's cosine similarity function.
 
 **movie_app/static**
