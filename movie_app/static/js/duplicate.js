@@ -8,6 +8,14 @@ d3.json(api_location).then(function(duplicate_data) {
     // Define poster section and select the class
     var poster_section = d3.select(".posterSection");
 
+    if(duplicate_data.length == 0) {
+        // Append div for card
+        var card_div = poster_section.append("div").classed("card text-center", true)
+            .attr("style", "width: 50rem; padding: 20px");
+        var card_heading = card_div.append("h3")
+            .text('No movies found! Please search for a different title.');
+    }
+    
     var x = 0;
     // Append posters for each movie
     duplicate_data.forEach(data => {
