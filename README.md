@@ -12,30 +12,26 @@ Our final application includes the following:
 
 ## Folder Structure
 
-**data_cleaning**
--	Contains our initial DataCleaning.ipynb file along with more data exploration and our final csv export.
+**move_app/data_cleaning**
+-	Contains our final data cleaning Jupyter notebook, DataCleaningNew.ipynb. Here we generated data from the Movie Database API and developed a recommender system through Scikit Learn's cosine similarity function.
 
-**similarity_matrix**
--	Contains our intial similiarty_matrix.ipynb file.
-
-**static**
+**movie_app/static**
 -	css: Contains our CSS files for styling each page
--	data: Contains csv files
--	images: Contains our homepage image
+-	data: Contains movie_db.csv file generated through SQLalchemy
+-	images: Contains our homepage image and TMDB logo
 -	js: Contains our JavaScript files for our index page and each additional endpoint.
 
-**templates**
+**movie_app/templates**
 -	Contains each html file for our index page and each additional endpoint.
 
-**app.py**
+**movie_app/app.py**
 -	Our main python Flask application that routes data to our similarity.py app and each additional endpoint.
+
+**movie_app/similarity.py**
+-	Our similarity matrix that sorts by similar movies from the user’s input.  
 
 **requirements.txt**
 -	Essential package dependencies needed for our final Heroku application.
-
-**similarity.py**
--	Our similarity matrix that sorts by similar movies from the user’s input.  
-
 
 ## Screenshots 
 ![Screen Shot 2022-01-14 at 1 10 00 PM](https://user-images.githubusercontent.com/26308909/149588556-d5c0475b-f31b-4bf9-875b-7880949b7d5c.png)
