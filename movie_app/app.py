@@ -18,8 +18,6 @@ DATABASE_URL = os.environ['DATABASE_URL']
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
-engine = create_engine(DATABASE_URL)
-
 # Create an instance of Flask
 app = Flask(__name__)
 
@@ -27,6 +25,7 @@ app = Flask(__name__)
 # Route to low budget api
 @app.route("/api/low_budget_filter")
 def api_low_budget_filter():
+  engine = create_engine(DATABASE_URL)
   conn = engine.connect()
 
   # Read in low budget table
@@ -34,6 +33,7 @@ def api_low_budget_filter():
 
   # Close the SQL connection
   conn.close()
+  engine.dispose()
 
   # Convert results to json
   results_json = results.to_json(orient='records') 
@@ -43,6 +43,7 @@ def api_low_budget_filter():
 # Route to female api
 @app.route("/api/female_filter")
 def api_female_filter():
+  engine = create_engine(DATABASE_URL)
   conn = engine.connect()
 
   # Read in female table
@@ -50,6 +51,7 @@ def api_female_filter():
 
   # Close the SQL connection
   conn.close()
+  engine.dispose()
 
   # Convert results to json
   results_json = results.to_json(orient='records') 
@@ -59,6 +61,7 @@ def api_female_filter():
 # Route to international api
 @app.route("/api/international_filter")
 def api_international_filter():
+  engine = create_engine(DATABASE_URL)
   conn = engine.connect()
 
   # Read in international table
@@ -66,6 +69,7 @@ def api_international_filter():
 
   # Close the SQL connection
   conn.close()
+  engine.dispose()
 
   # Convert results to json
   results_json = results.to_json(orient='records') 
@@ -75,13 +79,15 @@ def api_international_filter():
 # Route to no filter api
 @app.route("/api/no_filter")
 def api_no_filter():
+  engine = create_engine(DATABASE_URL)
   conn = engine.connect()
 
   # Read in no filter table
   results = pd.read_sql('SELECT * FROM no_filter', engine)
 
-  # Close the SQL connection
+  # Close the SQL connection 
   conn.close()
+  engine.dispose()
 
   # Convert results to json
   results_json = results.to_json(orient='records') 
@@ -91,6 +97,7 @@ def api_no_filter():
 # Route to no duplicate api
 @app.route("/api/duplicate_search")
 def api_duplicate_search():
+  engine = create_engine(DATABASE_URL)
   conn = engine.connect()
   
   # Read in duplicate search table
@@ -98,7 +105,8 @@ def api_duplicate_search():
 
   # Close the SQL connection
   conn.close()
-
+  engine.dispose()
+  
   # Convert results to json
   results_json = results.to_json(orient='records') 
 
