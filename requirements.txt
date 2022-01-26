@@ -2,5 +2,6 @@ config==0.5.1
 Flask==1.1.2
 pandas==1.1.5
 scikit_learn==1.0.2
+psycopg2-binary==2.8.6
 SQLAlchemy==1.4.15
 gunicorn==20.1.0
