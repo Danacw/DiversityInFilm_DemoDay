@@ -42,7 +42,7 @@ def get_movie_id(movie_title, movie_df):
 # Similarity Function
 def similarity(movie_title):
     # connect to the database
-    engine = create_engine(rds_connection_string)
+    engine = create_engine(DATABASE_URL)
     conn = engine.connect()
     movie_df = pd.read_csv("./static/data/movie_db.csv")
     movie_title = movie_title.lower()
