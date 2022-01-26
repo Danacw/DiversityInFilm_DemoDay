@@ -230,9 +230,10 @@ def similarity(movie_title):
         find_movie.to_sql(name='duplicate_search', con=conn, if_exists='append', index=False)
 
         # Return false to app.py (loads separate page)
+        conn.close()
         engine.dispose()
         return False
-        
+
     else:
         print(movie_id)
         # Calculate similarity scores
@@ -243,7 +244,6 @@ def similarity(movie_title):
 
         # Push results to json file
         # recommendations.to_json("./static/data/recommendations.json", orient="records")
-        print('before')
         # Close the SQL connection
         conn.close()
         engine.dispose()
