@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request, url_for, make_response
-import similarity
+from similarity import similarity
 import time 
 
 # JULIA ADDED: FOR SQL
@@ -119,7 +119,7 @@ def recommendations():
     # Get the title
     title = request.form['nm']
     # Run the similarity scores
-    success = similarity.similarity(title)
+    success = similarity(title)
 
     if(success):
       # Define the response
@@ -133,7 +133,7 @@ def recommendations():
     movie_id = request.cookies.get('id')
     title = request.cookies.get('title')
     # Run the similarity scores
-    similarity.similarity(title)
+    similarity(title)
     # Define the response
     resp = make_response(render_template('recommendations.html'))
 
