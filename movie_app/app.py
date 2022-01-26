@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request, url_for, make_response
-from similarity import similarity
+from movie_app.similarity import similarity
 import time 
 
 # JULIA ADDED: FOR SQL
