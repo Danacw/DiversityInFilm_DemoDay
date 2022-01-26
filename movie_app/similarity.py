@@ -9,6 +9,7 @@ import os
 # Import config
 from sqlalchemy import create_engine
 # configure the connection string
+# from config import db_user, db_password, db_host, db_name, db_port
 # rds_connection_string = f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
 # END OF ADDED BY JULIA
 

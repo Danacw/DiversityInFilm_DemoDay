@@ -18,9 +18,10 @@ body {
   }
 
 #index-image {
-    position: relative;
+    position:relative;
     width: 100%;
 }
+
 
 #logo-img {
     position: absolute;
@@ -48,6 +49,7 @@ body {
 /* Space Between: no space on ends */
 /* Space Around: half space on ends */
 /* Space Evenly: full space on ends */
+
 .center {
     padding: 10px;
     display: flex;
