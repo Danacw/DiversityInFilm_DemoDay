@@ -44,7 +44,7 @@ def similarity(movie_title):
     # connect to the database
     engine = create_engine(DATABASE_URL)
     conn = engine.connect()
-    movie_df = pd.read_csv("./static/data/movie_db.csv")
+    movie_df = pd.read_csv("movie_app/static/data/movie_db.csv")
     movie_title = movie_title.lower()
     print(movie_title)
 
