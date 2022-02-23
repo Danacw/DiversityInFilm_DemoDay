@@ -29,7 +29,7 @@ body {
 
 #logo-img {
     position: absolute;
-    bottom: 300px;
+    bottom: 310px;
     right: 20px;
     border: 1px balck solid;
     max-width: 8%;
@@ -38,7 +38,7 @@ body {
 #logo-p {
     position: absolute;
     bottom: 280px;
-    right: 100px;
+    right: 110px;
     margin-right: 30px;
     color: #61C4BA;
     font-weight: 500;
