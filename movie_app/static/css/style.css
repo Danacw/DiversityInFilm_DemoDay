@@ -263,11 +263,11 @@ ul {
 } */
 
 #submit_button {
-    font-family: Spartan;
-    width: 150px;
-    height: 41px;
-    background: -webkit-linear-gradient(#EBF4F5ff, #E2ECF2ff, #D9E5EEff, #D0DDEBff, #C7D5E7ff, #BECEE4ff, #B5C6E0ff);
-    border: 1px;
+    color: #121E2B;
+    position:relative;
+    height: 50%;
+    margin: 5px;
+    flex: 1;
 }
 
 

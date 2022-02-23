@@ -60,10 +60,12 @@
               <a class="nav-link" href="/lowbudget">Low Budget</a>
             </li>
             <!-- GRAB MOVIE TITLE & RUN SIMILARITY.PY  -->
-            <li class ="nav-item">
+            <li class ="nav-item search">
               <form id="search-form" action="{{ url_for('recommendations') }}" method="post">
-                <input  id="searchbar" style="width: 200%; margin: 5px;" type="text" name = 'nm' placeholder="  Search Movie">
-                <!-- <input type="submit" value="search" id="submit_button"> -->
+                <div class="form-custom">
+                  <input  id="searchbar" type="text" name = 'nm' placeholder="  Search Movie">
+                  <input type="submit" value="search" id="submit_button">
+                </div>
             </form>
             </li>
           </ul>
