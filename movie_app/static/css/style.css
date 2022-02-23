@@ -184,6 +184,10 @@ a.sort_buttons:hover {
     background: -webkit-linear-gradient(#EBF4F5ff, #E2ECF2ff, #D9E5EEff, #D0DDEBff, #C7D5E7ff, #BECEE4ff, #B5C6E0ff);
 }
 
+.nav-item.search {
+    flex:1
+}
+
 #search-form {
     background: -webkit-linear-gradient(#EBF4F5ff, #E2ECF2ff, #D9E5EEff, #D0DDEBff, #C7D5E7ff, #BECEE4ff, #B5C6E0ff);
 }
@@ -261,6 +265,12 @@ ul {
     font-size: 17px;
     width: 450px;
 } */
+
+#searchbar {
+    margin: 5px;
+    display:flex;
+    flex: 3;
+}
 
 #submit_button {
     color: #121E2B;
