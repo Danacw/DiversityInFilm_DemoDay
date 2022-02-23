@@ -18,10 +18,9 @@ body {
   }
 
 #index-image {
-    position:relative;
+    position: relative;
     width: 100%;
 }
-
 
 #logo-img {
     position: absolute;
@@ -49,7 +48,6 @@ body {
 /* Space Between: no space on ends */
 /* Space Around: half space on ends */
 /* Space Evenly: full space on ends */
-
 .center {
     padding: 10px;
     display: flex;
@@ -174,6 +172,18 @@ a.sort_buttons:hover {
     color: #121E2B;
 }
 
+.nav-custom {
+    display: flex;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.form-custom {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+  }
+
 .nav-item {
     color: white;
     position: relative;
@@ -190,6 +200,12 @@ a.sort_buttons:hover {
 
 #search-form {
     background: -webkit-linear-gradient(#EBF4F5ff, #E2ECF2ff, #D9E5EEff, #D0DDEBff, #C7D5E7ff, #BECEE4ff, #B5C6E0ff);
+}
+
+#searchbar {
+    margin: 5px;
+    display:flex;
+    flex: 3;
 }
 
 h1 {
@@ -243,18 +259,6 @@ h2 {
     padding: 5px;
 }
 
-ul {
-
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-/* li {
-    float: left;
-} */
-
 .menu {
     background: -webkit-linear-gradient(#EBF4F5ff, #E2ECF2ff, #D9E5EEff, #D0DDEBff, #C7D5E7ff, #BECEE4ff, #B5C6E0ff);
 }
@@ -265,12 +269,6 @@ ul {
     font-size: 17px;
     width: 450px;
 } */
-
-#searchbar {
-    margin: 5px;
-    display:flex;
-    flex: 3;
-}
 
 #submit_button {
     color: #121E2B;
