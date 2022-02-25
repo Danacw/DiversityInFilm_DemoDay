@@ -128,9 +128,7 @@ d3.json(api_location).then(function (recommendations_data) {
     // Get the directors info
     var prod_comp = recommendations_data[0].production_companies;
     // console.log(prod_comp);
-    // Call split names for production companies
-    var prod_comp_array = split_names(prod_comp);
-    // console.log(prod_comp_array);
+    var prod_comp_array = prod_comp;
 
     // Append info to page
     cast_text.text(cast_array).classed("card-text", true);
